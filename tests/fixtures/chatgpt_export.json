@@ -1,0 +1,114 @@
+[
+  {
+    "id": "conv_abc123",
+    "title": "Python Best Practices",
+    "create_time": 1700000000.0,
+    "update_time": 1700001200.0,
+    "mapping": {
+      "node_root": {
+        "id": "node_root",
+        "message": null,
+        "parent": null,
+        "children": ["node_sys"]
+      },
+      "node_sys": {
+        "id": "node_sys",
+        "message": {
+          "id": "msg_sys_01",
+          "author": {"role": "system"},
+          "content": {"content_type": "text", "parts": [""]},
+          "create_time": 1700000000.0,
+          "metadata": {}
+        },
+        "parent": "node_root",
+        "children": ["node_user_01"]
+      },
+      "node_user_01": {
+        "id": "node_user_01",
+        "message": {
+          "id": "msg_user_01",
+          "author": {"role": "user"},
+          "content": {"content_type": "text", "parts": ["What are Python best practices for writing clean code?"]},
+          "create_time": 1700000050.0,
+          "metadata": {}
+        },
+        "parent": "node_sys",
+        "children": ["node_asst_01"]
+      },
+      "node_asst_01": {
+        "id": "node_asst_01",
+        "message": {
+          "id": "msg_asst_01",
+          "author": {"role": "assistant"},
+          "content": {"content_type": "text", "parts": ["Here are some Python best practices: 1) Follow PEP 8, 2) Write docstrings, 3) Use type hints, 4) Prefer composition over inheritance."]},
+          "create_time": 1700000150.0,
+          "metadata": {"model_slug": "gpt-4o"}
+        },
+        "parent": "node_user_01",
+        "children": ["node_user_02"]
+      },
+      "node_user_02": {
+        "id": "node_user_02",
+        "message": {
+          "id": "msg_user_02",
+          "author": {"role": "user"},
+          "content": {"content_type": "text", "parts": ["Can you elaborate on type hints?"]},
+          "create_time": 1700000900.0,
+          "metadata": {}
+        },
+        "parent": "node_asst_01",
+        "children": ["node_asst_02"]
+      },
+      "node_asst_02": {
+        "id": "node_asst_02",
+        "message": {
+          "id": "msg_asst_02",
+          "author": {"role": "assistant"},
+          "content": {"content_type": "text", "parts": ["Type hints let you annotate variable types using the colon syntax, e.g. def greet(name: str) -> str. They improve readability and enable static analysis with tools like mypy."]},
+          "create_time": 1700001100.0,
+          "metadata": {"model_slug": "gpt-4o"}
+        },
+        "parent": "node_user_02",
+        "children": []
+      }
+    }
+  },
+  {
+    "id": "conv_def456",
+    "title": "Docker Containers Overview",
+    "create_time": 1700100000.0,
+    "update_time": 1700100600.0,
+    "mapping": {
+      "node_root": {
+        "id": "node_root",
+        "message": null,
+        "parent": null,
+        "children": ["node_user_01"]
+      },
+      "node_user_01": {
+        "id": "node_user_01",
+        "message": {
+          "id": "msg_u1",
+          "author": {"role": "user"},
+          "content": {"content_type": "text", "parts": ["Explain Docker containers in simple terms."]},
+          "create_time": 1700100010.0,
+          "metadata": {}
+        },
+        "parent": "node_root",
+        "children": ["node_asst_01"]
+      },
+      "node_asst_01": {
+        "id": "node_asst_01",
+        "message": {
+          "id": "msg_a1",
+          "author": {"role": "assistant"},
+          "content": {"content_type": "text", "parts": ["Docker containers are lightweight, portable units that package an application and all its dependencies together. Think of them as shipping containers for software — they run consistently across different environments."]},
+          "create_time": 1700100300.0,
+          "metadata": {"model_slug": "gpt-4-turbo"}
+        },
+        "parent": "node_user_01",
+        "children": []
+      }
+    }
+  }
+]

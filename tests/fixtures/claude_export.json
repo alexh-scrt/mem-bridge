@@ -1,0 +1,127 @@
+[
+  {
+    "uuid": "claude_conv_001",
+    "name": "Async Python Discussion",
+    "created_at": "2024-03-10T09:00:00.000000Z",
+    "updated_at": "2024-03-10T09:15:00.000000Z",
+    "account": {
+      "uuid": "user_abc",
+      "name": "Alice Coder"
+    },
+    "chat_messages": [
+      {
+        "uuid": "msg_001",
+        "sender": "human",
+        "text": "Can you explain Python's asyncio library?",
+        "created_at": "2024-03-10T09:00:30.000000Z",
+        "updated_at": "2024-03-10T09:00:30.000000Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "msg_002",
+        "sender": "assistant",
+        "text": "Python's asyncio library provides infrastructure for writing single-threaded concurrent code using coroutines. Key concepts include: event loops, coroutines (async/await), tasks, and futures. It's ideal for I/O-bound workloads like web requests and file operations.",
+        "created_at": "2024-03-10T09:01:00.000000Z",
+        "updated_at": "2024-03-10T09:01:00.000000Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "msg_003",
+        "sender": "human",
+        "text": "What is the difference between asyncio.create_task and asyncio.ensure_future?",
+        "created_at": "2024-03-10T09:05:00.000000Z",
+        "updated_at": "2024-03-10T09:05:00.000000Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "msg_004",
+        "sender": "assistant",
+        "text": "asyncio.create_task() is the modern, preferred way (Python 3.7+) to schedule a coroutine to run. asyncio.ensure_future() is older and more general — it accepts both coroutines and futures. Prefer create_task() for clarity in modern code.",
+        "created_at": "2024-03-10T09:06:30.000000Z",
+        "updated_at": "2024-03-10T09:06:30.000000Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "claude_conv_002",
+    "name": "Machine Learning Basics",
+    "created_at": "2024-04-01T14:00:00.000000Z",
+    "updated_at": "2024-04-01T14:20:00.000000Z",
+    "account": {
+      "uuid": "user_abc",
+      "name": "Alice Coder"
+    },
+    "chat_messages": [
+      {
+        "uuid": "msg_005",
+        "sender": "human",
+        "text": "What is the difference between supervised and unsupervised learning?",
+        "created_at": "2024-04-01T14:00:15.000000Z",
+        "updated_at": "2024-04-01T14:00:15.000000Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "msg_006",
+        "sender": "assistant",
+        "text": "Supervised learning uses labeled training data — you provide input-output pairs and the model learns the mapping. Examples: classification, regression. Unsupervised learning works with unlabeled data and finds hidden patterns. Examples: clustering, dimensionality reduction.",
+        "created_at": "2024-04-01T14:01:00.000000Z",
+        "updated_at": "2024-04-01T14:01:00.000000Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "msg_007",
+        "sender": "human",
+        "text": "Which one should I use for anomaly detection?",
+        "created_at": "2024-04-01T14:10:00.000000Z",
+        "updated_at": "2024-04-01T14:10:00.000000Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "msg_008",
+        "sender": "assistant",
+        "text": "For anomaly detection, unsupervised learning is typically preferred when labeled anomaly examples are scarce (which is common). Algorithms like Isolation Forest, Autoencoder, and One-Class SVM are popular choices. If you have labeled anomalies, a supervised approach can yield higher precision.",
+        "created_at": "2024-04-01T14:12:00.000000Z",
+        "updated_at": "2024-04-01T14:12:00.000000Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  },
+  {
+    "uuid": "claude_conv_003",
+    "name": "Short Greeting",
+    "created_at": "2024-05-20T08:00:00.000000Z",
+    "updated_at": "2024-05-20T08:01:00.000000Z",
+    "account": {
+      "uuid": "user_abc"
+    },
+    "chat_messages": [
+      {
+        "uuid": "msg_009",
+        "sender": "human",
+        "text": "Hello!",
+        "created_at": "2024-05-20T08:00:05.000000Z",
+        "updated_at": "2024-05-20T08:00:05.000000Z",
+        "attachments": [],
+        "files": []
+      },
+      {
+        "uuid": "msg_010",
+        "sender": "assistant",
+        "text": "Hello! How can I assist you today?",
+        "created_at": "2024-05-20T08:00:10.000000Z",
+        "updated_at": "2024-05-20T08:00:10.000000Z",
+        "attachments": [],
+        "files": []
+      }
+    ]
+  }
+]
