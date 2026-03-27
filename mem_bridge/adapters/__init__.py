@@ -42,11 +42,30 @@ _WRITER_REGISTRY: dict[str, str] = {
     "gemini": "mem_bridge.adapters.gemini",
 }
 
-# Combined registry for introspection
-_ALL_PLATFORMS: dict[str, dict[str, str]] = {
-    "chatgpt": {"read": "mem_bridge.adapters.chatgpt"},
-    "claude": {"read": "mem_bridge.adapters.claude"},
-    "gemini": {"write": "mem_bridge.adapters.gemini"},
+# Canonical adapter class names per platform
+_ADAPTER_CLASS_NAMES: dict[str, str] = {
+    "chatgpt": "ChatGPTAdapter",
+    "claude": "ClaudeAdapter",
+    "gemini": "GeminiAdapter",
+}
+
+# Human-readable descriptions for each platform and mode
+_ADAPTER_DESCRIPTIONS: dict[str, dict[str, str]] = {
+    "chatgpt": {
+        "mode": "read",
+        "description": "Reads ChatGPT data-export ZIP archives and JSON files.",
+        "formats": ".zip, conversations.json, memory.json",
+    },
+    "claude": {
+        "mode": "read",
+        "description": "Reads Claude conversation export JSON files.",
+        "formats": ".json",
+    },
+    "gemini": {
+        "mode": "write",
+        "description": "Writes Gemini-compatible Gem Markdown and JSON files.",
+        "formats": ".md, .json",
+    },
 }
 
 
@@ -58,8 +77,8 @@ class AdapterNotFoundError(KeyError):
         self.mode = mode
         super().__init__(
             f"No {mode!r} adapter registered for platform {platform!r}. "
-            f"Available readers: {list(_READER_REGISTRY)}. "
-            f"Available writers: {list(_WRITER_REGISTRY)}."
+            f"Available readers: {sorted(_READER_REGISTRY)}. "
+            f"Available writers: {sorted(_WRITER_REGISTRY)}."
         )
 
 
@@ -124,16 +143,13 @@ def get_adapter(platform: str, mode: str = "read") -> Any:
 
     module = _import_module(registry[platform])
 
-    if mode == "read":
-        cls = getattr(module, "ChatGPTAdapter", None) or getattr(
-            module, "ClaudeAdapter", None
-        )
-        # Prefer the canonical class name derived from the platform
-        class_name = f"{platform.capitalize()}Adapter"
-        cls = getattr(module, class_name, cls)
-    else:
-        class_name = f"{platform.capitalize()}Adapter"
-        cls = getattr(module, class_name, None)
+    # Look up the canonical class name first, then fall back to convention
+    class_name = _ADAPTER_CLASS_NAMES.get(platform)
+    if class_name is None:
+        # Convention: PlatformAdapter (capitalise first letter only)
+        class_name = platform.capitalize() + "Adapter"
+
+    cls = getattr(module, class_name, None)
 
     if cls is None:
         raise AdapterNotFoundError(platform, mode)
@@ -173,6 +189,36 @@ def list_platforms() -> list[str]:
     """
     all_platforms: set[str] = set(_READER_REGISTRY.keys()) | set(_WRITER_REGISTRY.keys())
     return sorted(all_platforms)
+
+
+def get_adapter_info(platform: str) -> dict[str, str]:
+    """Return human-readable metadata about a registered adapter.
+
+    Parameters
+    ----------
+    platform:
+        Platform identifier, e.g. ``'chatgpt'``, ``'claude'``, ``'gemini'``.
+
+    Returns
+    -------
+    dict[str, str]
+        Dictionary containing ``'mode'``, ``'description'``, and
+        ``'formats'`` keys.
+
+    Raises
+    ------
+    AdapterNotFoundError
+        If *platform* is not registered in either the reader or writer registry.
+    """
+    platform = platform.lower().strip()
+    if platform not in _ADAPTER_DESCRIPTIONS:
+        # Determine which registries were searched for a useful error message
+        if platform not in _READER_REGISTRY and platform not in _WRITER_REGISTRY:
+            raise AdapterNotFoundError(platform, "read/write")
+    return _ADAPTER_DESCRIPTIONS.get(
+        platform,
+        {"mode": "unknown", "description": "No description available.", "formats": ""},
+    )
 
 
 def register_reader(platform: str, module_path: str) -> None:
@@ -220,6 +266,7 @@ def register_writer(platform: str, module_path: str) -> None:
 __all__ = [
     "AdapterNotFoundError",
     "get_adapter",
+    "get_adapter_info",
     "list_adapters",
     "list_platforms",
     "register_reader",
